@@ -37,6 +37,7 @@
  
  gem 'thor', '0.19.1'
  gem 'bootsnap' 
+ gem 'bootstrap-sass'
 
  group :development do
    gem 'listen', '~> 3.0.5'
