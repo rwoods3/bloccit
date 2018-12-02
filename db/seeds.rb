@@ -20,6 +20,9 @@
      body: RandomData.random_paragraph
    )
  end
+
+ p = Post.find_or_create_by!(body: "Ray Test Body", title: "Ray Test Title")
+ Comment.find_or_create_by!(body: "Ray Test Comment Body", post: p)
  
  puts "Seed finished"
  puts "#{Post.count} posts created"
