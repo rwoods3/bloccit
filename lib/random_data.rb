@@ -18,6 +18,9 @@ module RandomData
    sentence.capitalize << "."
  end
 
+ def self.random_price
+   rand(1..100)
+ end
 
  def self.random_word
    letters = ('a'..'z').to_a
