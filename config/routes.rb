@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
   resources :advertisements, except: [:edit, :update, :destroy]
   resources :questions
+  resources :users, only: [:new, :create]
 
   get 'about' => 'welcome#about'
   get 'welcome/contact'
