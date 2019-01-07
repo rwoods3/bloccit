@@ -1,0 +1,9 @@
+<h2>Sign Up Confirmation</h2>
+<h3>Are you sure these values are correct?</h3>
+<p>Email: <%= params[:user][:email] %></p>
+<p>Name: <%= params[:user][:name] %></p>
+<p>
+	<span><%= button_to "Yes", { controller: "users", action: "create", params: { user: user_params } }, class: 'btn btn-success' %></span>
+
+	<span><%= button_to "No", new_user_path, method: :get %></span>
+</p>
