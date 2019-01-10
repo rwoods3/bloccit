@@ -1,5 +1,16 @@
  require 'random_data'
 
+ # Create Users
+ 5.times do
+   User.create!(
+ # #3
+   name:     RandomData.random_name,
+   email:    RandomData.random_email,
+   password: RandomData.random_sentence
+   )
+ end
+ users = User.all
+
  # Create Topics
  15.times do
    Topic.create!(
@@ -13,6 +24,7 @@
  50.times do
  # #1
    Post.create!(
+     user:   users.sample,
      title:  RandomData.random_sentence,
      body:   RandomData.random_paragraph,
      topic:  topics.sample
@@ -41,7 +53,7 @@
    )
  end
 
- p = Post.find_or_create_by!(body: "Ray Test Body", title: "Ray Test Title", topic: topics.sample)
+ p = Post.find_or_create_by!(body: "Ray Test Body\nThis is a test with 20+ characters to pass validation", title: "Ray Test Title", topic: topics.sample, user: users.sample)
  Comment.find_or_create_by!(body: "Ray Test Comment Body", post: p)
  
 # Create Advertisements
@@ -53,7 +65,14 @@ end
 	Question.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: RandomData.random_resolve)
 end
 
+ user = User.first
+ user.update_attributes!(
+   email: 'raymondkwoods@hotmail.com', # replace this with your personal email
+   password: 'helloworld'
+ )
+
  puts "Seed finished"
+ puts "#{User.count} users created"
  puts "#{Topic.count} topics created"
  puts "#{Post.count} posts created"
  puts "#{SponsoredPost.count} sponsored posts created"
