@@ -9,6 +9,8 @@ class Post < ApplicationRecord
     validates :user, presence: true
 
 	default_scope { order('created_at DESC') }
+	scope :ordered_by_title, -> { order('title ASC') }
+	scope :ordered_by_reverse_created_at, -> { order('created_at ASC') }
 
 	def self.censor_posts()
 		self.all.each_with_index { |p, index| p.update_attributes!(title: 'SPAM') if index == 0 || ((index+1) % 5) == 0 }
