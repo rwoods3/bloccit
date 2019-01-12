@@ -65,9 +65,17 @@ end
 	Question.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: RandomData.random_resolve)
 end
 
- user = User.first
- user.update_attributes!(
-   email: 'raymondkwoods@hotmail.com', # replace this with your personal email
+ admin = User.create!(
+   name:     'Admin User',
+   email:    'admin@example.com',
+   password: 'helloworld',
+   role:     'admin'
+ )
+ 
+ # Create a member
+ member = User.create!(
+   name:     'Member User',
+   email:    'member@example.com',
    password: 'helloworld'
  )
 
