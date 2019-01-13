@@ -69,7 +69,7 @@ end
    name:     'Admin User',
    email:    'admin@example.com',
    password: 'helloworld',
-   role:     'admin'
+   role:     :admin
  )
  
  # Create a member
@@ -77,6 +77,14 @@ end
    name:     'Member User',
    email:    'member@example.com',
    password: 'helloworld'
+ )
+
+ # Create a moderator
+ moderator = User.create!(
+    name:     'Moderator User',
+    email:    'moderator@example.com',
+    password: 'helloworld',
+    role: :moderator
  )
 
  puts "Seed finished"
