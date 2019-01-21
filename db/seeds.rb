@@ -47,14 +47,14 @@
  # #3
  100.times do
    Comment.create!(
- # #4
+     user: users.sample,
      post: posts.sample,
      body: RandomData.random_paragraph
    )
  end
 
  p = Post.find_or_create_by!(body: "Ray Test Body\nThis is a test with 20+ characters to pass validation", title: "Ray Test Title", topic: topics.sample, user: users.sample)
- Comment.find_or_create_by!(body: "Ray Test Comment Body", post: p)
+ Comment.find_or_create_by!(body: "Ray Test Comment Body", post: p, user: users.sample)
  
 # Create Advertisements
 50.times do
