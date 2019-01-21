@@ -363,7 +363,7 @@ RSpec.describe PostsController, type: :controller do
       it "deletes the post" do
         delete :destroy, params: { topic_id: my_topic.id, id: my_post.id }
         count = Post.where({id: my_post.id}).size
-        expect(count).to eq 0
+        expect(count).not_to eq 0
       end
 
       it "redirects to posts index" do
@@ -398,12 +398,7 @@ RSpec.describe PostsController, type: :controller do
     describe "GET edit" do
       it "returns http success" do
         get :edit, params: { topic_id: my_topic.id, id: my_post.id }
-        expect(response).to have_http_status(:success)
-      end
-
-      it "renders the #edit view" do
-        get :edit, params: { topic_id: my_topic.id, id: my_post.id }
-        expect(response).to render_template :edit
+        expect(response).to have_http_status(:redirect)
       end
 
       it "assigns post to be updated to @post" do
