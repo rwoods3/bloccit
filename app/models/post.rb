@@ -13,25 +13,31 @@ class Post < ApplicationRecord
 	scope :ordered_by_title, -> { order('title ASC') }
 	scope :ordered_by_reverse_created_at, -> { order('created_at ASC') }
 
-   def up_votes
-     votes.where(value: 1).count
-   end
- 
-   def down_votes
-     votes.where(value: -1).count
-   end
- 
-   def points
-     votes.sum(:value)
-   end
+  after_create :create_vote
 
-   def update_rank
-     age_in_days = (created_at - Time.new(1970,1,1)) / 1.day.seconds
-     new_rank = points + age_in_days
-     update_attribute(:rank, new_rank)
-   end
+  def up_votes
+   votes.where(value: 1).count
+  end
 
-	def self.censor_posts()
-		self.all.each_with_index { |p, index| p.update_attributes!(title: 'SPAM') if index == 0 || ((index+1) % 5) == 0 }
-	end
+  def down_votes
+   votes.where(value: -1).count
+  end
+
+  def points
+   votes.sum(:value)
+  end
+
+  def update_rank
+   age_in_days = (created_at - Time.new(1970,1,1)) / 1.day.seconds
+   new_rank = points + age_in_days
+   update_attribute(:rank, new_rank)
+  end
+
+  def create_vote
+    user.votes.create post: self, value: 1
+  end
+
+  def self.censor_posts()
+  	self.all.each_with_index { |p, index| p.update_attributes!(title: 'SPAM') if index == 0 || ((index+1) % 5) == 0 }
+  end
 end
