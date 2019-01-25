@@ -15,6 +15,7 @@ class Post < ApplicationRecord
 	scope :ordered_by_reverse_created_at, -> { order('created_at ASC') }
 
   after_create :create_vote
+  after_create :create_favorite
 
   def up_votes
    votes.where(value: 1).count
@@ -36,6 +37,10 @@ class Post < ApplicationRecord
 
   def create_vote
     user.votes.create post: self, value: 1
+  end
+
+  def create_favorite
+    user.favorites.create post: self
   end
 
   def self.censor_posts()
