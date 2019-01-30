@@ -37,20 +37,5 @@ class UsersController < ApplicationController
   	params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def has_posts
-    @user.posts.any?
-  end
-
-  def has_comments
-    @user.comments.any?
-  end
-
-  def has_favorites
-    @user.favorites.any?
-  end
-  
   helper_method :user_params
-  helper_method :has_posts
-  helper_method :has_comments
-  helper_method :has_favorites
 end
